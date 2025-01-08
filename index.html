@@ -19,7 +19,7 @@
         const ctx = canvas.getContext('2d');
 
         let snake = [{ x: 200, y: 200 }];
-        let direction = { x: 0, y: 0 };
+        let direction = { x: 0, y: -10 }; // Start moving up
         let food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
         let score = 0;
 
