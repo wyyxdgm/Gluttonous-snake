@@ -10,10 +10,17 @@
             margin: 0 auto;
             background-color: #f0f0f0;
         }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <button id="startButton">开始游戏</button>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -23,6 +30,7 @@
         let food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
         let score = 0;
         const frameRate = 150; // Lowered the frame rate to control speed
+        let gameRunning = false;
 
         function drawRect(x, y, color) {
             ctx.fillStyle = color;
@@ -30,6 +38,8 @@
         }
 
         function gameLoop() {
+            if (!gameRunning) return;
+
             if (!snake || snake.length === 0) {
                 snake = [{ x: 200, y: 200 }];
             }
@@ -58,7 +68,14 @@
             setTimeout(gameLoop, frameRate); // Use setTimeout to control the frame rate
         }
 
+        document.getElementById('startButton').addEventListener('click', () => {
+            gameRunning = true;
+            gameLoop();
+        });
+
         document.addEventListener('keydown', event => {
+            if (!gameRunning) return;
+
             switch (event.key) {
                 case 'ArrowUp':
                     if (direction.y === 0) direction = { x: 0, y: -10 };
@@ -74,8 +91,6 @@
                     break;
             }
         });
-
-        gameLoop();
     </script>
 </body>
 </html>
