@@ -29,15 +29,8 @@
         }
 
         function gameLoop() {
-            if (!snake[0]) {
+            if (!snake || snake.length === 0) {
                 snake = [{ x: 200, y: 200 }];
-            }
-
-            if (snake[0].x === food.x && snake[0].y === food.y) {
-                score++;
-                food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
-            } else {
-                snake.pop();
             }
 
             const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
@@ -46,6 +39,13 @@
                 alert(`Game Over! Your score is ${score}`);
                 document.location.reload();
                 return;
+            }
+
+            if (snake[0].x === food.x && snake[0].y === food.y) {
+                score++;
+                food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
+            } else {
+                snake.pop();
             }
 
             snake.unshift(head);
